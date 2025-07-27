@@ -1,4 +1,4 @@
-        // Data Storage
+       
         let assignments = [];
         let studySessions = [];
         let focusSessions = [];
@@ -7,7 +7,7 @@
         let currentTime = 0;
         let isRunning = false;
 
-        // Motivational Quotes
+
         const quotes = [
             "The future belongs to those who believe in the beauty of their dreams.",
             "Success is not final, failure is not fatal: it is the courage to continue that counts.",
@@ -21,7 +21,6 @@
             "Dream it. Wish it. Do it."
         ];
 
-        // Initialize App
         document.addEventListener('DOMContentLoaded', function() {
             updateStats();
             displayAssignments();
@@ -34,7 +33,7 @@
             setCurrentDateTime();
         });
 
-        // Tab Management
+        
         function showTab(tabName) {
             const tabs = document.querySelectorAll('.tab-content');
             const navTabs = document.querySelectorAll('.nav-tab');
@@ -46,7 +45,7 @@
             event.target.classList.add('active');
         }
 
-        // Subject Priority Management
+        
         document.getElementById('subjectForm').addEventListener('submit', function(e) {
             e.preventDefault();
             
@@ -176,7 +175,7 @@
                 }
             });
             
-            // Sort by urgency
+            
             recommendations.sort((a, b) => {
                 const urgencyOrder = { 'high': 3, 'medium': 2, 'low': 1 };
                 return urgencyOrder[b.urgency] - urgencyOrder[a.urgency];
@@ -210,7 +209,7 @@
                 let remainingHours = dailyHours;
                 let daySubjects = [];
                 
-                // Prioritize subjects based on priority and deficit
+              
                 const prioritizedSubjects = subjects
                     .map(subject => {
                         const deficit = subject.weeklyHours - subject.hoursSpent;
@@ -244,7 +243,7 @@
             });
         }
 
-        // Assignment Management
+     
         document.getElementById('assignmentForm').addEventListener('submit', function(e) {
             e.preventDefault();
             
@@ -272,7 +271,7 @@
             updateSubjectDropdowns();
         });
 
-        // Handle subject dropdown changes
+       
         document.getElementById('assignmentSubject').addEventListener('change', function() {
             const otherInput = document.getElementById('assignmentSubjectOther');
             if (this.value === 'other') {
@@ -301,13 +300,13 @@
             const assignmentSelect = document.getElementById('assignmentSubject');
             const sessionSelect = document.getElementById('sessionSubject');
             
-            // Get unique subjects from both subjects array and existing assignments/sessions
+           
             const allSubjects = new Set();
             subjects.forEach(s => allSubjects.add(s.name));
             assignments.forEach(a => allSubjects.add(a.subject));
             studySessions.forEach(s => allSubjects.add(s.subject));
             
-            // Update both dropdowns
+          
             [assignmentSelect, sessionSelect].forEach(select => {
                 const currentValue = select.value;
                 select.innerHTML = '<option value="">Select Subject</option>';
@@ -386,7 +385,7 @@
             updateStats();
         }
 
-        // Study Session Management
+       
         document.getElementById('studyForm').addEventListener('submit', function(e) {
             e.preventDefault();
             
@@ -579,7 +578,7 @@
             }
         }
 
-        // Motivation
+      
         function getNewQuote() {
             const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
             document.getElementById('motivationQuote').textContent = randomQuote;
@@ -589,7 +588,7 @@
             }, 500);
         }
 
-        // Stats and Utilities
+      
         function updateStats() {
             document.getElementById('totalAssignments').textContent = assignments.length;
             document.getElementById('completedAssignments').textContent = 
@@ -604,11 +603,11 @@
             const minutes = todayFocusTime % 60;
             document.getElementById('focusTimeToday').textContent = `${hours}h ${minutes}m`;
             
-            // Calculate study streak (simplified)
+            
             const streak = Math.min(focusSessions.length, 7);
             document.getElementById('studyStreak').textContent = streak;
             
-            // Weekly stats
+            
             const weekStart = new Date();
             weekStart.setDate(weekStart.getDate() - weekStart.getDay());
             
