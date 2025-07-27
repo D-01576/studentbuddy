@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Productivity Tracker</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>✨ Student Productivity Hub</h1>
+            <p>Track assignments, plan sessions, monitor focus, stay motivated</p>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <h3>📝 Total Assignments</h3>
+                <div class="stat-value" id="totalAssignments">0</div>
+            </div>
+            <div class="stat-card">
+                <h3>✅ Completed</h3>
+                <div class="stat-value" id="completedAssignments">0</div>
+            </div>
+            <div class="stat-card">
+                <h3>⏰ Focus Time Today</h3>
+                <div class="stat-value" id="focusTimeToday">0h 0m</div>
+            </div>
+            <div class="stat-card">
+                <h3>🔥 Study Streak</h3>
+                <div class="stat-value" id="studyStreak">0</div>
+            </div>
+        </div>
+
+        <div class="nav-tabs">
+            <button class="nav-tab active" onclick="showTab('assignments')">📚 Assignments</button>
+            <button class="nav-tab" onclick="showTab('study')">📖 Study Planner</button>
+            <button class="nav-tab" onclick="showTab('focus')">⏱️ Focus Timer</button>
+            <button class="nav-tab" onclick="showTab('subjects')">🎯 Subject Priorities</button>
+            <button class="nav-tab" onclick="showTab('motivation')">💪 Motivation</button>
+        </div>
+
+        <div id="assignments" class="tab-content active">
+            <div class="grid-2">
+                <div>
+                    <h2>📝 Add New Assignment</h2>
+                    <form id="assignmentForm">
+                        <div class="form-group">
+                            <label>Assignment Title</label>
+                            <input type="text" id="assignmentTitle" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Subject</label>
+                            <select id="assignmentSubject" required>
+                                <option value="">Select Subject</option>
+                                <option value="other">Other/New Subject</option>
+                            </select>
+                            <input type="text" id="assignmentSubjectOther" placeholder="Enter subject name" style="display: none; margin-top: 10px;">
+                        </div>
+                        <div class="form-group">
+                            <label>Due Date</label>
+                            <input type="date" id="assignmentDueDate" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Priority</label>
+                            <select id="assignmentPriority">
+                                <option value="low">Low</option>
+                                <option value="medium">Medium</option>
+                                <option value="high">High</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Description</label>
+                            <textarea id="assignmentDescription" rows="3"></textarea>
+                        </div>
+                        <button type="submit" class="btn">Add Assignment</button>
+                    </form>
+                </div>
+                <div class="decorative-separator with-icon">
+                    <span class="separator-icon">📋</span>
+                </div>
+                <div>
+                    <h2>📋 Your Assignments</h2>
+                    <div id="assignmentsList"></div>
+                </div>
+            </div>
+        </div>
+
+        <div id="study" class="tab-content">
+            <div class="grid-2">
+                <div>
+                    <h2>📅 Plan Study Session</h2>
+                    <form id="studyForm">
+                        <div class="form-group">
+                            <label>Session Title</label>
+                            <input type="text" id="sessionTitle" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Subject</label>
+                            <select id="sessionSubject" required>
+                                <option value="">Select Subject</option>
+                                <option value="other">Other/New Subject</option>
+                            </select>
+                            <input type="text" id="sessionSubjectOther" placeholder="Enter subject name" style="display: none; margin-top: 10px;">
+                        </div>
+                        <div class="form-group">
+                            <label>Session Type</label>
+                            <select id="sessionType">
+                                <option value="study">Study</option>
+                                <option value="exam">Exam Prep</option>
+                                <option value="project">Project Work</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Duration (minutes)</label>
+                            <input type="number" id="sessionDuration" min="15" max="240" value="60">
+                        </div>
+                        <div class="form-group">
+                            <label>Scheduled Date</label>
+                            <input type="date" id="sessionDate" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Scheduled Time</label>
+                            <input type="time" id="sessionTime" required>
+                        </div>
+                        <button type="submit" class="btn">Schedule Session</button>
+                    </form>
+                </div>
+                <div class="decorative-separator with-icon">
+                    <span class="separator-icon">📚</span>
+                </div>
+                <div>
+                    <h2>📚 Scheduled Sessions</h2>
+                    <div id="sessionsList"></div>
+                </div>
+            </div>
+        </div>
+
+        <div id="subjects" class="tab-content">
+            <div class="grid-2">
+                <div>
+                    <h2>🎯 Add Subject Priority</h2>
+                    <form id="subjectForm">
+                        <div class="form-group">
+                            <label>Subject Name</label>
+                            <input type="text" id="subjectName" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Difficulty Level</label>
+                            <select id="subjectDifficulty">
+                                <option value="easy">Easy</option>
+                                <option value="medium">Medium</option>
+                                <option value="hard">Hard</option>
+                                <option value="very-hard">Very Hard</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Priority Level</label>
+                            <select id="subjectPriority">
+                                <option value="low">Low Priority</option>
+                                <option value="medium">Medium Priority</option>
+                                <option value="high">High Priority</option>
+                                <option value="critical">Critical Priority</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Weekly Study Hours Goal</label>
+                            <input type="number" id="subjectHours" min="1" max="40" value="5">
+                        </div>
+                        <div class="form-group">
+                            <label>Current Grade/Performance</label>
+                            <select id="subjectGrade">
+                                <option value="A">A (90-100%)</option>
+                                <option value="B">B (80-89%)</option>
+                                <option value="C">C (70-79%)</option>
+                                <option value="D">D (60-69%)</option>
+                                <option value="F">F (Below 60%)</option>
+                                <option value="unknown">Not Yet Graded</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Notes/Strategy</label>
+                            <textarea id="subjectNotes" rows="3" placeholder="What specific areas need extra focus?"></textarea>
+                        </div>
+                        <button type="submit" class="btn">Add Subject</button>
+                    </form>
+                </div>
+                <div class="decorative-separator with-icon">
+                </div>
+                <div>
+                    <h2>📊 Subject Priorities Overview</h2>
+                    <div id="subjectsList"></div>
+                    <div style="margin-top: 20px;">
+                        <h3>📈 Study Recommendations</h3>
+                        <div id="studyRecommendations"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="decorative-separator with-icon" style="margin-top: 30px;">
+                <span class="separator-icon">📅</span>
+            </div>
+            <div style="margin-top: 30px;">
+                <h2>📅 Weekly Study Schedule</h2>
+                <div id="weeklySchedule"></div>
+            </div>
+        </div>
+
+        <div id="focus" class="tab-content">
+            <div style="text-align: center;">
+                <h2>⏱️ Focus Timer</h2>
+                <div class="timer-display" id="timerDisplay">25:00</div>
+                <div class="timer-controls">
+                    <button class="btn" onclick="startTimer()">▶️ Start</button>
+                    <button class="btn" onclick="pauseTimer()">⏸️ Pause</button>
+                    <button class="btn" onclick="resetTimer()">🔄 Reset</button>
+                </div>
+                <div class="form-group" style="max-width: 300px; margin: 0 auto;">
+                    <label>Session Duration (minutes)</label>
+                    <select id="timerDuration" onchange="updateTimer()">
+                        <option value="1">1 min (Pomodoro)</option>
+                        <option value="25">25 min (Pomodoro)</option>
+                        <option value="15">15 min (Short)</option>
+                        <option value="45">45 min (Long)</option>
+                        <option value="60">60 min (Extended)</option>
+                    </select>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+                <div>
+                    <h3>📊 Today's Focus Sessions</h3>
+                    <div id="focusHistory"></div>
+                </div>
+            </div>
+        </div>
+
+        <div id="motivation" class="tab-content">
+            <div style="text-align: center;">
+                <h2>💪 Stay Motivated</h2>
+                <div class="motivation-quote" id="motivationQuote">
+                    "The future belongs to those who believe in the beauty of their dreams."
+                </div>
+                <button class="btn" onclick="getNewQuote()">🎯 New Quote</button>
+                
+                <div style="margin-top: 40px;">
+                    <h3>🏆 Your Achievements</h3>
+                    <div id="achievementsList">
+                        <div class="achievement-badge">🎯 First Assignment Added</div>
+                        <div class="achievement-badge">⏱️ First Focus Session</div>
+                        <div class="achievement-badge">📚 Study Planner Started</div>
+                    </div>
+                </div>
+
+                <div style="margin-top: 40px;">
+                    <h3 style="margin-bottom: 23px;">📈 Progress Overview</h3>
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <h3>📝 This Week</h3>
+                            <div class="stat-value" id="weeklyAssignments">0</div>
+                            <p>Assignments Completed</p>
+                        </div>
+                        <div class="stat-card">
+                            <h3>⏰ This Week</h3>
+                            <div class="stat-value" id="weeklyFocusTime">0h</div>
+                            <p>Focus Time</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<script src="script.js"></script>
+</body>
+</html>
